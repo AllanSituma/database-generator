@@ -1,0 +1,61 @@
+database:
+  host: mysql-production
+  user: root
+  password: password
+  name: my_database
+
+tables:
+  movies:
+    num_records: 100
+    columns:
+      - name: MovieID
+        type: INT AUTO_INCREMENT PRIMARY KEY
+      - name: Title
+        type: VARCHAR(255)
+      - name: ReleaseDate
+        type: DATE
+      - name: Genre
+        type: VARCHAR(255)
+      - name: Rating
+        type: FLOAT
+      - name: Director
+        type: VARCHAR(255)
+    foreign_keys:
+      - column: Director
+        ref_table: directors
+        ref_column: DirectorName
+
+  directors:
+    num_records: 50
+    columns:
+      - name: DirectorID
+        type: INT AUTO_INCREMENT PRIMARY KEY
+      - name: DirectorName
+        type: VARCHAR(255) UNIQUE
+
+  sales_shop:
+    num_records: 500
+    columns:
+      - name: ProductID
+        type: INT AUTO_INCREMENT PRIMARY KEY
+      - name: Name
+        type: VARCHAR(255)
+      - name: Price
+        type: DECIMAL(10, 2)
+      - name: Quantity
+        type: INT
+      - name: Category
+        type: VARCHAR(255)
+    foreign_keys:
+      - column: Category
+        ref_table: categories
+        ref_column: CategoryName
+
+  categories:
+    num_records: 10
+    columns:
+      - name: CategoryID
+        type: INT AUTO_INCREMENT PRIMARY KEY
+      - name: CategoryName
+        type: VARCHAR(255) UNIQUE
+

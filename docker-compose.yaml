@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: my_database
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  data_generator:
+    build:
+      context: .
+    volumes:
+      - ./database_config.yaml:/app/database_config.yaml
+    depends_on:
+      - database
+    environment:
+      DB_HOST: database
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_NAME: my_database
